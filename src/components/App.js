@@ -5,6 +5,11 @@ import { useState, useEffect } from 'react';
 function App() {
 	const [products, setProducts] = useState([]);
 	const [reviews, setReviews] = useState([]);
+	const [showsReviews, setShowsReviews] = useState({
+		reviews: reviews,
+		showReviews: false,
+	});
+	const [reviewId, setReviewId] = useState('')
 
 	const url = 'http://localhost:3000/products/';
 
@@ -26,11 +31,11 @@ function App() {
 				setReviews(res.data);
 			})
 			.then(showReviews())
-			.then(console.log(reviews));
+			.then(console.log(reviews))
+			.then(setShowsReviews({ reviews: reviews, showReviews: true }));
 	};
 
-	// //doesn't display quite yet, but the get reviews function works, and this is legit.
-	const showReviews = () => {
+	const showReviews = () => (
 		<div>
 			{reviews &&
 				reviews.map((rev) => (
@@ -42,8 +47,8 @@ function App() {
 						<button onClick={updateReview}>UPDATE REVIEW</button>
 					</div>
 				))}
-		</div>;
-	};
+		</div>
+	);
 
 	// this will be the click event to add a review
 	const addReview = () => {
@@ -56,8 +61,8 @@ function App() {
 	};
 
 	// this will be the click event to delete a review, find this is the reviews tab
-	const deleteReview = () => {
-		console.log('delete review button clicked');
+	const deleteReview = (review) => {
+		console.log(review)
 	};
 
 	return (
@@ -80,6 +85,9 @@ function App() {
 							<button onClick={addReview}>ADD REVIEW</button>
 						</div>
 					))}
+			</div>
+			<div className='reviews-display'>
+				{showsReviews.showReviews === true ? showReviews() : null}
 			</div>
 		</div>
 	);
