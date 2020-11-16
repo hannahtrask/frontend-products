@@ -61,8 +61,17 @@ function App() {
 	};
 
 	// this will be the click event to delete a review, find this is the reviews tab
+	// for whatever reason, the buttons in showReviews() aren't associated with the individual review
+	// that or I'm looking in the wrong place to fix it
+	// without that, I can't do any of these but I'll psuedo code this one
 	const deleteReview = (e) => {
 		console.log(e);
+		{
+			/* axios.delete(url + id + '/reviews/' + reviewId)
+				.then(res=>console.log(res))
+				.then(.then(setShowsReviews({ reviews: reviews, showReviews: true }));) */
+		}
+	
 	};
 
 	return (
