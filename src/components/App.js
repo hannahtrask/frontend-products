@@ -9,7 +9,6 @@ function App() {
 		reviews: reviews,
 		showReviews: false,
 	});
-	const [reviewId, setReviewId] = useState('')
 
 	const url = 'http://localhost:3000/products/';
 
@@ -31,20 +30,21 @@ function App() {
 				setReviews(res.data);
 			})
 			.then(showReviews())
-			.then(console.log(reviews))
 			.then(setShowsReviews({ reviews: reviews, showReviews: true }));
 	};
 
 	const showReviews = () => (
-		<div>
+		<div className='reviews-display'>
 			{reviews &&
 				reviews.map((rev) => (
-					<div key={rev.id}>
+					<div key={rev.id} className='review'>
 						<h2>{rev.title}</h2>
 						<h4>{rev.author}</h4>
 						<p>{rev.content}</p>
-						<button onClick={deleteReview}>DELETE REVIEW</button>
-						<button onClick={updateReview}>UPDATE REVIEW</button>
+						<div className='update-delete'>
+							<button onClick={deleteReview}>DELETE REVIEW</button>
+							<button onClick={updateReview}>UPDATE REVIEW</button>
+						</div>
 					</div>
 				))}
 		</div>
@@ -61,8 +61,8 @@ function App() {
 	};
 
 	// this will be the click event to delete a review, find this is the reviews tab
-	const deleteReview = (review) => {
-		console.log(review)
+	const deleteReview = (e) => {
+		console.log(e);
 	};
 
 	return (
